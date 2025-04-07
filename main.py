@@ -1,25 +1,52 @@
 # Problem Statement :
 '''
-Customer churn is a significant challenge for financial institutions, as retaining existing customers is often more cost-effective than acquiring new ones. The dataset contains information about bank customers, including demographic details (e.g., age, gender, geography), financial attributes (e.g., credit score, balance, estimated salary), and banking behavior (e.g., tenure, number of products, activity status). However, the bank lacks a clear understanding of the factors driving customer churn and a predictive mechanism to identify customers at risk of leaving. The goal is to analyze this dataset to uncover patterns and build a predictive model that can accurately identify customers likely to churn, enabling the bank to take proactive measures to improve retention.
+Bank Customer Churn: The goal is to identify key behavioral and demographic factors driving customer churn in a bank and provide insights to improve retention.
 '''
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load the dataset
-data = pd.read_excel('Bank_Churn.xlsx')
+# ! Load the dataset
+df = pd.read_excel('Bank_Churn.xlsx')
 
-# Check for  the structure, missing values and data types
-print(data.head())
-print(data.info())
-print(data.isnull().sum())
+#! EDA
 
-print(data.columns.tolist() , "\n")
-# Check for duplicates
-duplicates = data.duplicated().sum()
+print("First 5 rows of the dataset: \n")
+print(df.head())
+
+print("Information about the dataset: ")
+print(df.info())
+
+print("Missing Values: \n")
+print(df.isnull().sum())
+
+print("Columns: ")
+print(df.columns.tolist() , "\n")
+
+# ! Check for duplicates
+duplicates = df.duplicated().sum()
 print(f'Duplicates: {duplicates}\n')
 
-print("Summary Statistics: \n")
-print(data.describe())
+print("Statistical Summary: \n")
+print(df.describe())
+
+print("Data Types: ")
+print(df.dtypes)
+
+print("\nUnique Values: ")
+print(df.nunique())
+
+
+# ! Correlation matrix to identify relationships between features
+
+plt.figure(figsize=(8, 6)) 
+selected_columns = ['Age', 'Balance', 'IsActiveMember','NumOfProducts','CreditScore','Tenure','HasCrCard' ,'EstimatedSalary', 'Exited']
+sns.heatmap(df[selected_columns].corr(), annot=True, cmap='coolwarm')
+plt.title('Correlation Matrix')
+plt.xticks(fontsize=7, rotation=30)
+plt.yticks(fontsize=7)
+plt.show()
+
+
 
