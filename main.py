@@ -50,3 +50,32 @@ plt.show()
 
 
 
+# ! Objective 1: Explore how customer background affects churn
+
+# Age bins
+df['AgeGroup'] = pd.cut(df['Age'], bins=[18, 30, 45, 60, 92], labels=['18-30', '31-45', '46-60', '60+'])
+
+# Churn by Age Group
+plt.figure(figsize=(8, 6))
+sns.barplot(x='AgeGroup', y='Exited', hue='AgeGroup', data=df, palette='Set2')
+plt.title('Churn Rate by Age Group')
+plt.xlabel('Age Group')
+plt.ylabel('Churn Rate')
+plt.show()
+
+# Churn by Gender
+plt.figure(figsize=(8, 6))
+sns.barplot(x='Gender', y='Exited', data=df, hue='Gender', palette='Set2')
+plt.title('Churn Rate by Gender')
+plt.xlabel('Gender')
+plt.ylabel('Churn Rate')
+plt.legend()
+plt.show()
+
+# Churn by Geography
+plt.figure(figsize=(8, 6))
+sns.barplot(x='Geography', y='Exited', hue='Geography', data=df, palette='Set2')
+plt.title('Churn Rate by Geography')
+plt.xlabel('Geography')
+plt.ylabel('Churn Rate')
+plt.show()
