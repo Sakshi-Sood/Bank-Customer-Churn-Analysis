@@ -212,3 +212,72 @@ plt.ylabel("Churn Rate")
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+
+# ! Objective 5: Spot unusual credit behaviors – Identify customers with unusually high or low credit scores and see if those outliers are more likely to leave.
+
+Q1 = df['CreditScore'].quantile(0.25)
+Q3 = df['CreditScore'].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Categorize customers as Low, Normal, or High based on CreditScore
+df['CreditScoreCategory'] = 'Normal'
+df.loc[df['CreditScore'] < lower_bound, 'CreditScoreCategory'] = 'Low'
+df.loc[df['CreditScore'] > upper_bound, 'CreditScoreCategory'] = 'High'
+
+plt.figure(figsize=(12, 5))
+
+## ? Subplot 1: Box Plot for CreditScore to Spot Outliers
+
+plt.subplot(1, 2, 1)
+sns.boxplot(y='CreditScore', data=df, color='skyblue')
+plt.title('Box Plot of Credit Scores\n(Identifying Outliers)')
+plt.ylabel('Credit Score')
+
+## ? Subplot 2: Bar Plot for Churn Rate by CreditScore Category
+
+plt.subplot(1, 2, 2)
+sns.barplot(x='CreditScoreCategory', y='Exited', data=df, hue='CreditScoreCategory',
+            estimator=lambda x: sum(x) / len(x), palette='pastel',
+            order=['Low', 'Normal', 'High'])
+plt.title('Churn Rate by Credit Score Category')
+plt.xlabel('Credit Score Category')
+plt.ylabel('Churn Rate')
+
+plt.tight_layout()
+plt.show()
+
+
+# ! Objective 6: To analyze the relationship between balance and the number of products held by customers, and how these factors relate to churn.
+
+## ? Combined Analysis: Balance and Number of Products
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+
+## ? Plot 1: Average Balance by Number of Products and Churn Status
+
+pivot_data = df.pivot_table(index='NumOfProducts', columns='Exited', values='Balance', aggfunc='mean')
+pivot_data.columns = ['Stayed', 'Churned']
+pivot_data.plot(kind='bar', color=['#8fd9b6', '#ff9999'], ax=axes[0])
+
+axes[0].set_title('Average Balance by Number of Products and Churn Status')
+axes[0].set_xlabel('Number of Products')
+axes[0].set_ylabel('Average Balance')
+axes[0].legend(title='Churn Status', loc='upper center')
+
+## ? Plot 2: Churn Rate by Zero Balance Status
+
+df['ZeroBalance'] = df['Balance'] == 0
+zero_balance_churn = df.groupby('ZeroBalance')['Exited'].mean().reset_index()
+
+sns.barplot(x='Exited', y='ZeroBalance', hue='ZeroBalance', data=zero_balance_churn, palette='Set2', orient='h', ax=axes[1])
+
+axes[1].set_title('Churn Rate by Zero Balance Status')
+axes[1].set_ylabel('Balance Status')
+axes[1].set_xlabel('Churn Rate')
+axes[1].set_yticks([0, 1])
+axes[1].set_yticklabels(['Non-Zero Balance', 'Zero Balance'])
+
+plt.tight_layout()
+plt.show()
