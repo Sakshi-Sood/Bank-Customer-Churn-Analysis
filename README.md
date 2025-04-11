@@ -40,7 +40,7 @@ The dataset used in this project is the "Bank Customer Churn" dataset, which con
 
 ## 📊 Data Visualizations
 
-Check the Jupyter Notebook file `Bank_Customer_Churn_Analysis.ipynb` for detailed analysis and visualizations.
+Check the Jupyter Notebook file [Bank_Customer_Churn_Analysis.ipynb](https://github.com/Sakshi-Sood/Python-CA2/blob/main/bank_churn.ipynb) for detailed analysis and visualizations.
 
 ## 🚀 Key Insights and Findings
 
