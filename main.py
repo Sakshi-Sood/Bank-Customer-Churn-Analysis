@@ -6,23 +6,24 @@ Bank Customer Churn: The goal is to identify key behavioral and demographic fact
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from colorama import Fore
 
 # ! Load the dataset
 data = pd.read_excel('Bank_Churn.xlsx')
-df = data.head(5000).copy()  
+df = data.head(5000).copy()
 
 #! EDA
 
-print("First 5 rows of the dataset: ")
+print(Fore.GREEN + "First 5 rows of the dataset: " + Fore.RESET)
 print(df.head())
 
-print("\nInformation about the dataset: ")
+print(Fore.YELLOW + "\nInformation about the dataset: " + Fore.RESET)
 print(df.info())
 
-print("\nMissing Values: ")
+print(Fore.BLUE + "\nMissing Values: " + Fore.RESET)
 print(df.isnull().sum())
 
-print("\nColumns: ")
+print(Fore.CYAN + "\nColumns: " + Fore.RESET)
 print(df.columns.tolist())
 
 
@@ -31,20 +32,20 @@ print(df.columns.tolist())
 duplicates = df.duplicated().sum()
 print(f'Duplicates: {duplicates}')
 
-print("\nStatistical Summary: ")
+print(Fore.MAGENTA + "\nStatistical Summary: " + Fore.RESET)
 print(df.describe())
 
-print("\nData Types: ")
+print(Fore.CYAN + "\nData Types: " + Fore.RESET)
 print(df.dtypes)
 
-print("\nUnique Values: ")
+print(Fore.LIGHTBLUE_EX + "\nUnique Values: " + Fore.RESET)
 print(df.nunique())
 
 
 # ! Outlier detection using IQR method
 
 numerical_cols = ['CreditScore', 'Age', 'Tenure', 'Balance', 'NumOfProducts', 'EstimatedSalary']
-outlier_summary = {}
+outlier = {}
 
 for col in numerical_cols:
     Q1 = df[col].quantile(0.25)
@@ -53,15 +54,15 @@ for col in numerical_cols:
     lower_bound = Q1 - 1.5 * IQR
     upper_bound = Q3 + 1.5 * IQR
     outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)]
-    outlier_summary[col] = len(outliers)
+    outlier[col] = len(outliers)
 
-outlier_summary_df = pd.DataFrame(list(outlier_summary.items()), columns=['Column', 'Outlier_Count'])
-print(outlier_summary_df)
+outlier_df = pd.DataFrame(list(outlier.items()), columns=['Column', 'Outlier_Count'])
+print(outlier_df)
 
 
 # ! Correlation matrix to identify relationships between features
 
-plt.figure(figsize=(8, 6)) 
+plt.figure(figsize=(8, 6))
 selected_columns = ['Age', 'Balance', 'IsActiveMember','NumOfProducts','CreditScore','Tenure','HasCrCard' ,'EstimatedSalary', 'Exited']
 sns.heatmap(df[selected_columns].corr(), annot=True, cmap='coolwarm')
 plt.title('Correlation Matrix')
@@ -90,15 +91,15 @@ plt.show()
 gender_churn = df.groupby('Gender')['Exited'].mean()
 plt.figure(figsize=(8, 6))
 plt.pie(
-    gender_churn, 
-    labels=gender_churn.index, 
-    autopct='%1.1f%%', 
-    colors=['#8fd9b6', '#ff9999'], 
-    startangle=90, 
-    explode=(0.05, 0.05), 
-    textprops={'fontsize': 12}  
+    gender_churn,
+    labels=gender_churn.index,
+    autopct='%1.1f%%',
+    colors=['#8fd9b6', '#ff9999'],
+    startangle=90,
+    explode=(0.05, 0.05),
+    textprops={'fontsize': 12}
 )
-plt.title('Churn Rate by Gender')  
+plt.title('Churn Rate by Gender', fontsize=24, fontweight='bold', color='black')
 plt.show()
 
 
@@ -183,7 +184,7 @@ engagement_churn = engagement_churn.T
 engagement_churn.columns = ['Churn Rate']
 
 engagement_churn.sort_values('Churn Rate', ascending=False).plot(
-    kind='barh', 
+    kind='barh',
     color=sns.color_palette('viridis', 4)
 )
 
