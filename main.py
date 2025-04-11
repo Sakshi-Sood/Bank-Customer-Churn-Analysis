@@ -13,28 +13,28 @@ df = data.head(5000).copy()
 
 #! EDA
 
-print("First 5 rows of the dataset: \n")
+print("First 5 rows of the dataset: ")
 print(df.head())
 
-print("Information about the dataset: ")
+print("\nInformation about the dataset: ")
 print(df.info())
 
-print("Missing Values: \n")
+print("\nMissing Values: ")
 print(df.isnull().sum())
 
-print("Columns: ")
-print(df.columns.tolist() , "\n")
+print("\nColumns: ")
+print(df.columns.tolist())
 
 
 # ! Check for duplicates
 
 duplicates = df.duplicated().sum()
-print(f'Duplicates: {duplicates}\n')
+print(f'Duplicates: {duplicates}')
 
-print("Statistical Summary: \n")
+print("\nStatistical Summary: ")
 print(df.describe())
 
-print("Data Types: ")
+print("\nData Types: ")
 print(df.dtypes)
 
 print("\nUnique Values: ")
@@ -221,7 +221,6 @@ IQR = Q3 - Q1
 lower_bound = Q1 - 1.5 * IQR
 upper_bound = Q3 + 1.5 * IQR
 
-# Categorize customers as Low, Normal, or High based on CreditScore
 df['CreditScoreCategory'] = 'Normal'
 df.loc[df['CreditScore'] < lower_bound, 'CreditScoreCategory'] = 'Low'
 df.loc[df['CreditScore'] > upper_bound, 'CreditScoreCategory'] = 'High'
