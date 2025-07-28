@@ -72,7 +72,8 @@ Check the Jupyter Notebook file [Bank_Customer_Churn_Analysis.ipynb](https://git
 ## 🛠️ Tools and Technologies
 
 - **Programming Language**: Python
-- **Libraries**: Pandas, NumPy, Matplotlib, Seaborn
+- **Libraries**: Pandas, NumPy, Matplotlib, Seaborn, Streamlit, Plotly
+- **Data Visualization**: Plotly, Matplotlib, Seaborn
 - **Environment**: Jupyter Notebook
 - **Version Control**: Git
 
