@@ -40,9 +40,7 @@ The dataset used in this project is the "Bank Customer Churn" dataset, which con
 
 ## 📊 Data Visualizations
 
-Check the Jupyter Notebook file [Bank_Customer_Churn_Analysis.ipynb](https://github.com/Sakshi-Sood/Python-CA2/blob/main/bank_churn.ipynb) for detailed analysis and visualizations.
-
-## 🚀 Key Insights and Findings
+# 🚀 Key Insights and Findings
 
 1. **Demographics and Churn**:
     - Customers aged between 46 and 60, particularly those residing in Germany, exhibit higher churn rates compared to other age groups and regions.
