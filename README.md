@@ -40,7 +40,7 @@ The dataset used in this project is the "Bank Customer Churn" dataset, which con
 
 ## 📊 Data Visualizations
 
-# 🚀 Key Insights and Findings
+### 🚀 Key Insights and Findings
 
 1. **Demographics and Churn**:
     - Customers aged between 46 and 60, particularly those residing in Germany, exhibit higher churn rates compared to other age groups and regions.
